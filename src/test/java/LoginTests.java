@@ -24,7 +24,7 @@ public class LoginTests extends BaseTest {
         WebDriver driver = new EdgeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
-        String url = "https://google.ca/";
+        String url = "https://amazon.ca/";
         driver.get(url);
         Assert.assertEquals(driver.getCurrentUrl(), url);
         driver.quit();
