@@ -5,7 +5,7 @@ public class addSongToPlaylist extends BaseTest {
     @Test
     public void addSongToPlaylistTest() throws InterruptedException {
 
-        provideEmail("demo@koel.dev");
+        provideEmail("demo@koel.dev");s
         Thread.sleep(3000);
 
         providePassword("demo");
