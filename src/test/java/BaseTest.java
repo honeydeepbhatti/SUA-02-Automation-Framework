@@ -37,8 +37,13 @@ public class BaseTest {
     @AfterMethod
     public void closeBrowser(){
 
-        driver.get(url);
+        driver.quit();
 
+    }
+
+    public void navigateToPage(){
+
+        driver.get(url);
     }
 
     public void provideEmail(String email){
