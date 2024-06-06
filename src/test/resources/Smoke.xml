@@ -8,8 +8,10 @@
             <class name="LoginTests">
                 <methods>
                     <include name="logicSuccess"/>
+                    <include name="logOutTest"/>
                 </methods>
             </class>
+
 
 
         </classes>
