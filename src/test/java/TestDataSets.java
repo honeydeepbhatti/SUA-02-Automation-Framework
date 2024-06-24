@@ -16,7 +16,7 @@ public class TestDataSets {
         return new Object[][] {
                 {"ABC"},
                 {"CDS"},
-                {"HGF"}
+                {"HGF"},
         };
     }
 

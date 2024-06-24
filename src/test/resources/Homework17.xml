@@ -1,12 +1,10 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="TestNG">
     <parameter name="BaseURL" value="https://demo.koel.dev/"/>
-    <test name="Example">
+    <test name="Homework17Test">
         <classes>
             <class name="Homework17">
-                <methods>
-                    <include name="playSong"/>
-                </methods>
+
             </class>
         </classes>
     </test>

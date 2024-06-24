@@ -12,20 +12,25 @@ public class Homework17 extends BaseTest {
     @Test
     public void playSong() {
         navigateToPage();
-        provideEmail("demo@koel.dev");
+
+
         getWebDriverWait().until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[type='email']")));
+        provideEmail("demo@koel.dev");
 
-        providePassword("demo");
+
         getWebDriverWait().until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[type='password']")));
+        providePassword("demo");
 
-        loginToKoel();
+
         getWebDriverWait().until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='submit']")));
+        loginToKoel();
 
 
-        clickPlay();
         getWebDriverWait().until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@title='Play or resume']")));
+        clickPlay();
 
 
+        getWebDriverWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='song-info playing']")));
         Assert.assertTrue(isSongPlaying(), "The song is not playing.");
     }
 
