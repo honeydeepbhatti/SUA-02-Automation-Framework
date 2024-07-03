@@ -6,6 +6,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
+import pages.ProfilePage;
 
 public class ProfileTests extends BaseTest {
 
@@ -85,6 +86,9 @@ public class ProfileTests extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
 
+        ProfilePage profilePage = new ProfilePage(driver);
+
+
         provideEmail("demo@koel.dev");
         providePassword("demo");
         clickLogin();
@@ -92,6 +96,7 @@ public class ProfileTests extends BaseTest {
         editName("Deep");
         saveChanges();
         verifySuccessMessage();
+        //Assert.assertTrue(profilePage.verifySuccessMessage().isDisplayed());
 
     }
 }

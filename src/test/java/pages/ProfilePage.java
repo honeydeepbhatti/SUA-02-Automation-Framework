@@ -55,6 +55,6 @@ public class ProfilePage extends BasePage {
 
     public void verifySuccessMessage() {
         WebElement successMessageElement = findElement(successMessage);
-        Assert.assertTrue(successMessageElement.isDisplayed(), "Success message is not displayed!");
+        Assert.assertTrue(successMessageElement.isDisplayed());
     }
 }

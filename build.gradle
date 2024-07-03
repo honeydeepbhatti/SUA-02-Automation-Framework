@@ -19,11 +19,12 @@ dependencies {
 
 test {
     useTestNG() {
-        suites "src/test/resources/Smoke.xml"
+        //suites "src/test/resources/Smoke.xml"
         //suites "src/test/resources/Homework15.xml"
         //suites "src/test/resources/Regression.xml"
-        //suites "src/test/resources/TestNG.xml"
+        suites "src/test/resources/TestNG.xml"
        // suites "src/test/resources/Lesson18Homework"
+        systemProperty"browser", System.getProperty("browser")
     }
 }
 
