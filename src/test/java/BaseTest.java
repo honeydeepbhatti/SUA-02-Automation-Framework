@@ -41,7 +41,7 @@ public class BaseTest {
 
     @BeforeMethod
     @Parameters({"BaseURL"})
-    public void launchBrowser(String baseUrl){
+    public void launchBrowser(String baseUrl) throws MalformedURLException {
        //EdgeOptions options = new EdgeOptions();
         //options.addArguments("--remote-allow-origins=*");
         //options.addArguments("--disable-notifications");
@@ -97,27 +97,35 @@ public class BaseTest {
     }
 
 
-    public static WebDriver pickBrowser(String browser) throws MalformedURLException {
+        public static WebDriver pickBrowser(String browser) throws MalformedURLException {
 
         DesiredCapabilities caps = new DesiredCapabilities();
-        String gridURL = " http://10.0.0.188:4444";
-        switch(browser){
-            case "Firefox": WebDriverManager.firefoxdriver().setup();
-            return driver = new firefoxdriver();
-            case "MicrosoftEdge" : WebDriverManager.edgedriver().setup();
-            EdgeOptions edgeOptions = new EdgeOptions();
-            edgeOptions.addArguments("--remote-allow-origins=*");
-            return driver = new EdgeDriver(edgeOptions);
+        String gridURL = "http://10.0.0.188:4444";
+
+        switch (browser) {
+            case "Firefox":
+                WebDriverManager.firefoxdriver().setup();
+                return driver = new FirefoxDriver();
+
+            case "MicrosoftEdge":
+                WebDriverManager.edgedriver().setup();
+                EdgeOptions edgeOptions = new EdgeOptions();
+                edgeOptions.addArguments("--remote-allow-origins=*");
+                return driver = new EdgeDriver(edgeOptions);
+
             case "grid-edge":
-                caps.setCapability("browserName","MicrosoftEdge");
-                return driver = new RemoteWebDriver(URI.create(gridURL).toURL(),caps);
-            case "grid-firefox": caps.setCapability("browserName", "firefox");
-            return driver = new RemoteWebDriver(URI.create(gridURL).toURL(),caps);
+                caps.setCapability("browserName", "MicrosoftEdge");
+                return driver = new RemoteWebDriver(URI.create(gridURL).toURL(), caps);
+
+            case "grid-firefox":
+                caps.setCapability("browserName", "firefox");
+                return driver = new RemoteWebDriver(URI.create(gridURL).toURL(), caps);
 
             default:
-                WebDriver.chromedriver().setup();
-                ChromeOptions
+                WebDriverManager.chromedriver().setup();
+                ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.addArguments("--remote-allow-origins=*");
+                return driver = new ChromeDriver(chromeOptions);
         }
     }
-
 }
