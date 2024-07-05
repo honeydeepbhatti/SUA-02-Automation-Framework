@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterMethod;
@@ -20,29 +21,28 @@ import java.time.Duration;
 public class BaseTest {
 
     public WebDriver driver;
-
     public String url = "https://demo.koel.dev/";
 
-    public Object[][] getDataFromDataProviders(){
-      return new Object[][] {
-              {"invalid@gmail.com","invalidPass"},
-              {"demo@koel.dev","invalidPass"},
-              {"invalidEmail@demo.dev","demo"},
-              {"",""},
-      };
+    public Object[][] getDataFromDataProviders() {
+        return new Object[][]{
+                {"invalid@gmail.com", "invalidPass"},
+                {"demo@koel.dev", "invalidPass"},
+                {"invalidEmail@demo.dev", "demo"},
+                {"", ""},
+        };
     }
-
 
     @BeforeSuite
     static void setupClass() {
-       // WebDriverManager.chromedriver().setup();
-        //WebDriverManager.edgedriver().setup();
+        // Uncomment if needed
+        // WebDriverManager.chromedriver().setup();
+        // WebDriverManager.edgedriver().setup();
     }
 
     @BeforeMethod
     @Parameters({"BaseURL"})
     public void launchBrowser(String baseUrl) throws MalformedURLException {
-       //EdgeOptions options = new EdgeOptions();
+        //EdgeOptions options = new EdgeOptions();
         //options.addArguments("--remote-allow-origins=*");
         //options.addArguments("--disable-notifications");
 
@@ -52,80 +52,73 @@ public class BaseTest {
         driver.manage().window().maximize();
 
         navigateToPage(baseUrl);
-
     }
+
     @AfterMethod
-    public void closeBrowser(){
-        driver.quit();
+    public void closeBrowser() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
-
-    public void navigateToPage(String baseUrl){
-
-        driver.get(url);
-
+    public void navigateToPage(String baseUrl) {
+        driver.get(baseUrl != null ? baseUrl : url);
     }
 
-    public void provideEmail(String email){
-
+    public void provideEmail(String email) {
         WebElement emailField = driver.findElement(By.cssSelector("input[type='email']"));
         emailField.clear();
         emailField.sendKeys(email);
-
     }
 
-    public void providePassword(String password){
-
+    public void providePassword(String password) {
         WebElement passwordField = driver.findElement(By.cssSelector("input[type='password']"));
         passwordField.clear();
         passwordField.sendKeys(password);
-
     }
 
-    public void clickLogin(){
-
+    public void clickLogin() {
         WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
         loginButton.click();
-
     }
 
-    public void logOut(){
-
+    public void logOut() {
         WebElement logoutButton = driver.findElement(By.cssSelector("button[data-title='Log out']"));
         logoutButton.click();
-
     }
 
-
-        public static WebDriver pickBrowser(String browser) throws MalformedURLException {
-
+    public static WebDriver pickBrowser(String browser) throws MalformedURLException {
         DesiredCapabilities caps = new DesiredCapabilities();
-        String gridURL = "http://10.0.0.188:4444";
+        String gridUrl = "http://192.168.55.103:4444"; // replace with your grid URL
 
         switch (browser) {
-            case "Firefox":
+            case "firefox":
                 WebDriverManager.firefoxdriver().setup();
-                return driver = new FirefoxDriver();
+                return new FirefoxDriver();
 
             case "MicrosoftEdge":
                 WebDriverManager.edgedriver().setup();
                 EdgeOptions edgeOptions = new EdgeOptions();
                 edgeOptions.addArguments("--remote-allow-origins=*");
-                return driver = new EdgeDriver(edgeOptions);
+                return new EdgeDriver(edgeOptions);
 
             case "grid-edge":
                 caps.setCapability("browserName", "MicrosoftEdge");
-                return driver = new RemoteWebDriver(URI.create(gridURL).toURL(), caps);
+                return new RemoteWebDriver(URI.create(gridUrl).toURL(), caps);
 
             case "grid-firefox":
                 caps.setCapability("browserName", "firefox");
-                return driver = new RemoteWebDriver(URI.create(gridURL).toURL(), caps);
+                return new RemoteWebDriver(URI.create(gridUrl).toURL(), caps);
+
+            case "grid-chrome":
+                caps.setCapability("browserName", "chrome");
+                return new RemoteWebDriver(URI.create(gridUrl).toURL(), caps);
 
             default:
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--remote-allow-origins=*");
-                return driver = new ChromeDriver(chromeOptions);
+                return new ChromeDriver(chromeOptions);
         }
     }
 }
